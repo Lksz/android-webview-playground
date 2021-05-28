@@ -6,14 +6,17 @@ import android.os.Bundle
 import android.text.Editable
 import android.widget.Button
 import android.widget.EditText
-import android.widget.Toast
-import com.google.android.material.textfield.TextInputEditText
+
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         this.setupForm()
+    }
+
+    fun getUserName (): Editable {
+        return findViewById<EditText>(R.id.username).text
     }
 
     private fun setupForm () {
@@ -23,16 +26,14 @@ class MainActivity : AppCompatActivity() {
             if (username.isEmpty()) {
                 this.showMissingUsernameAlert();
             } else {
-                this.goToPage();
+                this.loadExternalPage();
             }
         }
     }
 
-    private fun getUserName (): String {
-        return findViewById<EditText>(R.id.username).text.toString()
+    private fun loadExternalPage () {
+        WebPlatform(this).load()
     }
-
-    private fun goToPage () {}
 
     private fun showMissingUsernameAlert () {
         AlertDialog
